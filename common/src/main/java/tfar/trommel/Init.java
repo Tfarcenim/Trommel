@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class Init {
 
-    public static final Block MESH = new MeshBlock(BlockBehaviour.Properties.of().strength(2.5f,5));
+    public static final Block MESH = new MeshBlock(BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops().noOcclusion());
     public static final Item MESH_ITEM = new BlockItem(MESH,new Item.Properties());
 
     public static final Block BLOCK = new TrommelBlock(BlockBehaviour.Properties.of().strength(2.5f,5));

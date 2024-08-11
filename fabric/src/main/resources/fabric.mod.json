@@ -17,7 +17,8 @@
     "entrypoints": {
         "main": [
           "tfar.trommel.TrommelFabric"
-        ]
+        ],
+        "client": ["tfar.trommel.client.ModClientFabric"]
     },
     "mixins": [
         "${mod_id}.mixins.json",

@@ -1,24 +1,24 @@
 package tfar.trommel.datagen;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.world.level.block.Block;
-import tfar.craftingstation.init.ModBlocks;
+import tfar.trommel.Init;
+import tfar.trommel.Trommel;
 
 public class ModBlockLoot extends VanillaBlockLoot {
 
-    public ModBlockLoot(HolderLookup.Provider pRegistries) {
-        super(pRegistries);
+    public ModBlockLoot() {
+        super();
     }
 
     @Override
     protected void generate() {
-        dropSelf(ModBlocks.crafting_station);
-        this.add(ModBlocks.crafting_station_slab, this::createSlabItemTable);
+        dropSelf(Init.BLOCK);
+        dropSelf(Init.MESH);
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ModDatagen.getKnownBlocks().toList();
+        return Trommel.getKnownBlocks().toList();
     }
 }
