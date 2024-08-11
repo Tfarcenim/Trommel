@@ -17,6 +17,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         makeSimpleBlockItem(Init.MESH_ITEM);
+        makeSimpleBlockItem(Init.ITEM);
     }
 
     protected void makeSimpleBlockItem(Item item, ResourceLocation loc) {

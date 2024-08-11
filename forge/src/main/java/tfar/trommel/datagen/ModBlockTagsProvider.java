@@ -18,6 +18,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Init.MESH);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Init.MESH,Init.BLOCK);
     }
 }

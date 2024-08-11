@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "trommel:block/trommel_bottom",
+    "east": "trommel:block/trommel_side",
+    "north": "trommel:block/trommel_front",
+    "south": "trommel:block/trommel_back",
+    "up": "trommel:block/trommel_top",
+    "west": "trommel:block/trommel_output"
+  }
+}
