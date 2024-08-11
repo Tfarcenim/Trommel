@@ -2,9 +2,7 @@ package tfar.trommel;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import tfar.trommel.invetory.TrommelSlot;
 import tfar.trommel.platform.Services;
@@ -14,17 +12,19 @@ public class TrommelMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     private final Player player;
     private final TrommelInventory trommelInventory;
+    private final ContainerData dataAccess;
 
     public TrommelMenu(int id, Inventory $$1) {
-        this(id, $$1, ContainerLevelAccess.NULL, Services.PLATFORM.create(null));
+        this(id, $$1, ContainerLevelAccess.NULL, Services.PLATFORM.create(null), new SimpleContainerData(4));
     }
 
 
-    protected TrommelMenu(int id, Inventory inventory, ContainerLevelAccess access,TrommelInventory trommelInventory) {
+    protected TrommelMenu(int id, Inventory inventory, ContainerLevelAccess access, TrommelInventory trommelInventory, ContainerData dataAccess) {
         super(Init.MENU_TYPE, id);
         this.access = access;
         this.player = inventory.player;
         this.trommelInventory = trommelInventory;
+        this.dataAccess = dataAccess;
 
         addSlot(new TrommelSlot(trommelInventory,0,33,50));
 
@@ -44,6 +44,8 @@ public class TrommelMenu extends AbstractContainerMenu {
         for(int l = 0; l < 9; ++l) {
             this.addSlot(new Slot(inventory, l, 8 + l * 18, y+58));
         }
+
+        addDataSlots(dataAccess);
     }
 
     @Override
