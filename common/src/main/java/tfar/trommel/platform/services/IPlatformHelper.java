@@ -1,5 +1,7 @@
 package tfar.trommel.platform.services;
 
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import tfar.trommel.TrommelBlockEntity;
 import tfar.trommel.TrommelInventory;
 
@@ -39,5 +41,9 @@ public interface IPlatformHelper {
 
 
     TrommelInventory create(TrommelBlockEntity trommelBlockEntity);
+
+    int getBurnTime(ItemStack stack, RecipeType<?> type);
+
+    ItemStack getCraftRemainder(ItemStack stack);
 
 }

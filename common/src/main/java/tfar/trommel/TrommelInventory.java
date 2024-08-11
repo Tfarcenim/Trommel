@@ -3,6 +3,8 @@ package tfar.trommel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import tfar.trommel.platform.Services;
+
 //Similar to IItemhandler, but adapted for common
 public interface TrommelInventory {
     /**
@@ -26,7 +28,13 @@ public interface TrommelInventory {
     int getSlotStackSize(int slot);
 
 
-    boolean isStackValid(int slot, @NotNull ItemStack stack);
+    default boolean isStackValid(int slot, @NotNull ItemStack stack) {
+        if (slot == TrommelBlockEntity.FUEL) {
+            int i = Services.PLATFORM.getBurnTime(stack, ModRecipeTypes.TROMMEL);
+            return i > 0;
+        }
+        return true;
+    }
 
     void setStack(int slot, @NotNull ItemStack stack);
 

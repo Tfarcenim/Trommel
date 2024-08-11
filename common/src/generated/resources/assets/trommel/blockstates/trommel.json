@@ -2,33 +2,33 @@
   "variants": {
     "facing=east,lit=false": {
       "model": "trommel:block/trommel",
-      "y": 180
+      "y": 90
     },
     "facing=east,lit=true": {
       "model": "trommel:block/trommel_lit",
-      "y": 180
+      "y": 90
     },
     "facing=north,lit=false": {
-      "model": "trommel:block/trommel",
-      "y": 90
+      "model": "trommel:block/trommel"
     },
     "facing=north,lit=true": {
-      "model": "trommel:block/trommel_lit",
-      "y": 90
+      "model": "trommel:block/trommel_lit"
     },
     "facing=south,lit=false": {
       "model": "trommel:block/trommel",
-      "y": 270
+      "y": 180
     },
     "facing=south,lit=true": {
       "model": "trommel:block/trommel_lit",
-      "y": 270
+      "y": 180
     },
     "facing=west,lit=false": {
-      "model": "trommel:block/trommel"
+      "model": "trommel:block/trommel",
+      "y": 270
     },
     "facing=west,lit=true": {
-      "model": "trommel:block/trommel_lit"
+      "model": "trommel:block/trommel_lit",
+      "y": 270
     }
   }
 }

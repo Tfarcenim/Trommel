@@ -31,7 +31,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 modelFile = models().cube("trommel",Trommel.id("block/trommel_bottom"),Trommel.id("block/trommel_top"),Trommel.id("block/trommel_front"),
                         Trommel.id("block/trommel_back"),Trommel.id("block/trommel_side"),Trommel.id("block/trommel_output"));
             }
-            return ConfiguredModel.builder().modelFile(modelFile).rotationY((facing.get2DDataValue() + 3) % 4 * 90).build();
+            return ConfiguredModel.builder().modelFile(modelFile).rotationY((facing.get2DDataValue() + 2) % 4 * 90).build();
         });
     }
 }

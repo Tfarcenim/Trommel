@@ -1,5 +1,8 @@
 package tfar.trommel.platform;
 
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.common.ForgeHooks;
 import tfar.trommel.TrommelBlockEntity;
 import tfar.trommel.TrommelInventory;
 import tfar.trommel.platform.services.IPlatformHelper;
@@ -29,5 +32,15 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public TrommelInventory create(TrommelBlockEntity trommelBlockEntity) {
         return null;
+    }
+
+    @Override
+    public int getBurnTime(ItemStack stack, RecipeType<?> type) {
+        return ForgeHooks.getBurnTime(stack,type);
+    }
+
+    @Override
+    public ItemStack getCraftRemainder(ItemStack stack) {
+        return stack.getCraftingRemainingItem();
     }
 }

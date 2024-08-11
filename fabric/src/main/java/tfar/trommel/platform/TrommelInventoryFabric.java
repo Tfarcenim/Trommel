@@ -109,14 +109,7 @@ public class TrommelInventoryFabric implements TrommelInventory {
         return 64;
     }
 
-    @Override
-    public boolean isStackValid(int slot, @NotNull ItemStack stack) {
-        if (slot == 0) {
-            Integer i = FuelRegistry.INSTANCE.get(stack.getItem());
-            return i != null && i > 0;
-        }
-        return true;
-    }
+
 
     @Override
     public void setStack(int slot, @NotNull ItemStack stack) {

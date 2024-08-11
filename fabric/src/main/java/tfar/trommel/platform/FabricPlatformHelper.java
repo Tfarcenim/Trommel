@@ -1,5 +1,9 @@
 package tfar.trommel.platform;
 
+import net.fabricmc.fabric.api.item.v1.FabricItemStack;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import tfar.trommel.TrommelBlockEntity;
 import tfar.trommel.TrommelInventory;
 import tfar.trommel.platform.services.IPlatformHelper;
@@ -27,5 +31,15 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public TrommelInventory create(TrommelBlockEntity trommelBlockEntity) {
         return new TrommelInventoryFabric(trommelBlockEntity);
+    }
+
+    @Override
+    public int getBurnTime(ItemStack stack, RecipeType<?> type) {
+        return FuelRegistry.INSTANCE.get(stack.getItem());
+    }
+
+    @Override
+    public ItemStack getCraftRemainder(ItemStack stack) {
+        return stack.getRecipeRemainder();
     }
 }

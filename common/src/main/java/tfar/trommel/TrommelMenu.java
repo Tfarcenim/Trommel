@@ -73,6 +73,25 @@ public class TrommelMenu extends AbstractContainerMenu {
         return $$2;
     }
 
+    public int getBurnProgress() {
+        int i = this.dataAccess.get(2);
+        int j = this.dataAccess.get(3);
+        return j != 0 && i != 0 ? i * 24 / j : 0;
+    }
+
+    public int getLitProgress() {
+        int i = this.dataAccess.get(1);
+        if (i == 0) {
+            i = 200;
+        }
+
+        return this.dataAccess.get(0) * 13 / i;
+    }
+
+    public boolean isLit() {
+        return this.dataAccess.get(0) > 0;
+    }
+
     @Override
     public boolean stillValid(Player player) {
         return stillValid(this.access, player, Init.BLOCK);

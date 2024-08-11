@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class TrommelScreen extends AbstractContainerScreen<TrommelMenu> {
-    private static final ResourceLocation CRAFTING_TABLE_LOCATION = Trommel.id("textures/container/trommel.png");
+    private static final ResourceLocation TEXTURE = Trommel.id("textures/container/trommel.png");
 
     public TrommelScreen(TrommelMenu $$0, Inventory $$1, Component $$2) {
         super($$0, $$1, $$2);
@@ -37,7 +37,12 @@ public class TrommelScreen extends AbstractContainerScreen<TrommelMenu> {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int i = this.leftPos;
         int j = (this.height - this.imageHeight) / 2;
-        graphics.blit(CRAFTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
+        graphics.blit(TEXTURE, i, j, 0, 0, this.imageWidth, this.imageHeight);
+
+        if (this.menu.isLit()) {
+            int k = this.menu.getLitProgress();
+            graphics.blit(TEXTURE, i + 33, j + 45 - k, 176, 12 - k, 14, k + 1);
+        }
     }
 
 }
