@@ -1,7 +1,6 @@
 package tfar.trommel;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -10,11 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class TrommelScreen extends AbstractContainerScreen<TrommelMenu> {
-    private static final ResourceLocation CRAFTING_TABLE_LOCATION = new ResourceLocation("textures/gui/container/crafting_table.png");
+    private static final ResourceLocation CRAFTING_TABLE_LOCATION = Trommel.id("textures/container/trommel.png");
 
     public TrommelScreen(TrommelMenu $$0, Inventory $$1, Component $$2) {
         super($$0, $$1, $$2);
         this.titleLabelX = 29;
+        inventoryLabelY += 26;
+        imageHeight +=26;
     }
 
     @Override

@@ -15,6 +15,9 @@ public class TrommelFabric implements ModInitializer {
         Registry.register(BuiltInRegistries.MENU,Trommel.id(Trommel.MOD_ID),Init.MENU_TYPE);
         Registry.register(BuiltInRegistries.RECIPE_TYPE,Trommel.id(Trommel.MOD_ID),ModRecipeTypes.TROMMEL);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER,Trommel.id(Trommel.MOD_ID),ModRecipeSerializers.TROMMEL);
+
+        Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,Trommel.id(Trommel.MOD_ID),Init.BLOCK_ENTITY_TYPE);
+
         Trommel.init();
     }
 }

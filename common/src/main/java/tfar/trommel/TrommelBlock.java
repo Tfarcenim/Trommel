@@ -14,28 +14,18 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
-public class TrommelBlock extends Block {
+public class TrommelBlock extends Block implements EntityBlock {
     public TrommelBlock(Properties $$0) {
         super($$0);
         this.registerDefaultState(this.stateDefinition.any().setValue(LecternBlock.FACING, Direction.NORTH));
-    }
-
-    private static final Component CONTAINER_TITLE = Component.translatable("container.crafting");
-
-    @Override
-    public RenderShape getRenderShape(BlockState $$0) {
-        return RenderShape.MODEL;
-    }
-
-    @Override
-    public VoxelShape getOcclusionShape(BlockState $$0, BlockGetter $$1, BlockPos $$2) {
-        return LecternBlock.SHAPE_COMMON;
     }
 
     @Override
@@ -44,7 +34,6 @@ public class TrommelBlock extends Block {
             return InteractionResult.SUCCESS;
         } else {
             $$3.openMenu($$0.getMenuProvider($$1, $$2));
-            $$3.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
             return InteractionResult.CONSUME;
         }
     }
@@ -66,37 +55,18 @@ public class TrommelBlock extends Block {
     }
 
     @Override
-    public VoxelShape getShape(BlockState $$0, BlockGetter $$1, BlockPos $$2, CollisionContext $$3) {
-        switch ($$0.getValue(LecternBlock.FACING)) {
-            case NORTH -> {
-                return LecternBlock.SHAPE_NORTH;
-            }
-            case SOUTH -> {
-                return LecternBlock.SHAPE_SOUTH;
-            }
-            case EAST -> {
-                return LecternBlock.SHAPE_EAST;
-            }
-            case WEST -> {
-                return LecternBlock.SHAPE_WEST;
-            }
-            default -> {
-                return LecternBlock.SHAPE_COMMON;
-            }
-        }
-    }
-
-    @Override
     public MenuProvider getMenuProvider(BlockState $$0, Level $$1, BlockPos $$2) {
-        return new SimpleMenuProvider(($$2x, $$3, $$4) -> {
-            return new TrommelMenu($$2x, $$3, ContainerLevelAccess.create($$1, $$2));
-        }, CONTAINER_TITLE);
+        return (TrommelBlockEntity)$$1.getBlockEntity($$2);
     }
-
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> $$0) {
         $$0.add(LecternBlock.FACING);
     }
 
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new TrommelBlockEntity(blockPos,blockState);
+    }
 }

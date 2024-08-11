@@ -40,5 +40,7 @@ public class TrommelForge {
 
         event.register(Registries.RECIPE_SERIALIZER,Trommel.id(Trommel.MOD_ID),() -> ModRecipeSerializers.TROMMEL);
 
+        event.register(Registries.BLOCK_ENTITY_TYPE,Trommel.id(Trommel.MOD_ID),() -> Init.BLOCK_ENTITY_TYPE);
+
     }
 }
