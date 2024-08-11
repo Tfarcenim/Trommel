@@ -14,10 +14,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import tfar.trommel.platform.Services;
 
 public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nameable {
 
-
+    protected TrommelInventory trommelInventory = Services.PLATFORM.create(this);
 
     public TrommelBlockEntity(BlockPos $$1, BlockState $$2) {
         this(Init.BLOCK_ENTITY_TYPE, $$1, $$2);
@@ -45,21 +46,23 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return new TrommelMenu(i,inventory, ContainerLevelAccess.create(level,worldPosition));
+        return new TrommelMenu(i,inventory, ContainerLevelAccess.create(level,worldPosition),trommelInventory);
     }
 
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        if (pTag.contains("CustomName", 8)) {
-            this.name = Component.Serializer.fromJson(pTag.getString("CustomName"));
+    public void load(CompoundTag tag) {
+        super.load(tag);
+
+        trommelInventory.deserialize(tag.getCompound("inv"));
+        if (tag.contains("CustomName", 8)) {
+            this.name = Component.Serializer.fromJson(tag.getString("CustomName"));
         }
     }
 
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.put("inv",trommelInventory.serialize());
         if (this.name != null) {
-            pTag.putString("CustomName", Component.Serializer.toJson(this.name));
+            tag.putString("CustomName", Component.Serializer.toJson(this.name));
         }
     }
 }

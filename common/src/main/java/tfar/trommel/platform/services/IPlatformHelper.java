@@ -1,5 +1,8 @@
 package tfar.trommel.platform.services;
 
+import tfar.trommel.TrommelBlockEntity;
+import tfar.trommel.TrommelInventory;
+
 public interface IPlatformHelper {
 
     /**
@@ -33,4 +36,8 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+
+    TrommelInventory create(TrommelBlockEntity trommelBlockEntity);
+
 }

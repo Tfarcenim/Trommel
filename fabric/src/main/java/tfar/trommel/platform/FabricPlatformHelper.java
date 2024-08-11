@@ -1,5 +1,7 @@
 package tfar.trommel.platform;
 
+import tfar.trommel.TrommelBlockEntity;
+import tfar.trommel.TrommelInventory;
 import tfar.trommel.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -20,5 +22,10 @@ public class FabricPlatformHelper implements IPlatformHelper {
     public boolean isDevelopmentEnvironment() {
 
         return FabricLoader.getInstance().isDevelopmentEnvironment();
+    }
+
+    @Override
+    public TrommelInventory create(TrommelBlockEntity trommelBlockEntity) {
+        return new TrommelInventoryFabric(trommelBlockEntity);
     }
 }
