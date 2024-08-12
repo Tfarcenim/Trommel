@@ -1,11 +1,12 @@
 package tfar.trommel;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.util.Mth;
-import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,16 +15,20 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import tfar.trommel.invetory.ContainerWrapper;
 import tfar.trommel.platform.Services;
+import tfar.trommel.recipe.RangedEntry;
 import tfar.trommel.recipe.TrommelRecipe;
+
+import java.util.stream.IntStream;
 
 public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nameable {
 
@@ -67,8 +72,8 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
     }
 
     protected final ContainerWrapper wrapper = new ContainerWrapper(trommelInventory);
-    private final RecipeManager.CachedCheck<Container, TrommelRecipe> quickCheck = RecipeManager.createCheck(ModRecipeTypes.TROMMEL);
-    private TrommelRecipe cache;
+    private final RecipeManager.CachedCheck<ContainerWrapper, TrommelRecipe> quickCheck = RecipeManager.createCheck(ModRecipeTypes.TROMMEL);
+    private TrommelRecipe match;
 
     public static final MutableComponent DEFAULT_NAME = Component.translatable("container.trommel.trommel");
 
@@ -96,13 +101,9 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
             --blockEntity.litTime;
         }
 
+        blockEntity.match = blockEntity.quickCheck.getRecipeFor(blockEntity.wrapper, pLevel).orElse(null);
 
-        if (blockEntity.checkRecipes) {
-            blockEntity.cache = blockEntity.quickCheck.getRecipeFor(blockEntity.wrapper, pLevel).orElse(null);
-            blockEntity.checkRecipes = false;
-        }
-
-        if (!blockEntity.isLit()) {
+        if (!blockEntity.isLit() && blockEntity.match != null) {
             ItemStack itemstack = blockEntity.trommelInventory.getStack(FUEL);
             if (!itemstack.isEmpty()) {
                 blockEntity.litTime = Services.PLATFORM.getBurnTime(itemstack, ModRecipeTypes.TROMMEL);
@@ -120,27 +121,20 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
             }
         }
 
-        ItemStack itemstack = blockEntity.trommelInventory.getStack(FUEL);
-        boolean flag3 = !itemstack.isEmpty();
         if (blockEntity.isLit()) {
-            Recipe<?> recipe;
-
-            if (blockEntity.isLit()) {
+            if (blockEntity.match != null) {
                 ++blockEntity.cookingProgress;
-                if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
+                if (blockEntity.cookingProgress >= blockEntity.cookingTotalTime) {
                     blockEntity.cookingProgress = 0;
-                    blockEntity.cookingTotalTime = 99;//getTotalCookTime(pLevel, blockEntity);
-                //    if (blockEntity.burn(pLevel.registryAccess(), recipe, blockEntity.items, i)) {
-                 //       blockEntity.setRecipeUsed(recipe);
-                 //   }
-
+                    blockEntity.cookingTotalTime = getTotalCookTime(pLevel, blockEntity);
+                    blockEntity.process();
                     isDirty = true;
                 }
-            } else {
-                blockEntity.cookingProgress = 0;
             }
-        } else if (!blockEntity.isLit() && blockEntity.cookingProgress > 0) {
-            blockEntity.cookingProgress = Mth.clamp(blockEntity.cookingProgress - 2, 0, blockEntity.cookingTotalTime);
+        }
+
+        if (blockEntity.match == null || !blockEntity.isLit()) {
+            blockEntity.cookingProgress = 0;
         }
 
         if (flag != blockEntity.isLit()) {
@@ -153,6 +147,27 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
             setChanged(pLevel, pPos, pState);
         }
 
+    }
+
+    private static int getTotalCookTime(Level $$0, TrommelBlockEntity $$1) {
+        return $$1.quickCheck.getRecipeFor($$1.wrapper, $$0).map(TrommelRecipe::getProcessingTime).orElse(50);
+    }
+
+    protected void process() {
+        if (match != null) {
+            int slot = match.findInput(wrapper);
+            trommelInventory.extractStack(slot,1,false);
+            RangedEntry rangedEntry = match.get(level.random);
+            ItemStack stack = rangedEntry.getItem(level.random);
+
+            boolean connectedToChest = false;
+            if (connectedToChest) {
+
+            } else {
+                Containers.dropItemStack(level,getBlockPos().getX(),getBlockPos().getY(),getBlockPos().getZ(),stack);
+            }
+
+        }
     }
 
     private boolean isLit() {

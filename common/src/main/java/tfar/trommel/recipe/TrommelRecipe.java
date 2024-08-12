@@ -7,6 +7,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +24,7 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
 
     private final ResourceLocation id;
     private final Ingredient input;
+    private final int processingTime = 50;
     private final double outputChance;
     private final SimpleWeightedRandomList<RangedEntry> outputs;
 
@@ -44,6 +46,18 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
         return IntStream.of(1, 2, 3, 4).anyMatch(i -> input.test(container.getItem(i)));
     }
 
+    public int findInput(ContainerWrapper container) {
+        return IntStream.of(1, 2, 3, 4).filter(i -> input.test(container.getItem(i))).findFirst().orElseThrow();
+    }
+
+    public RangedEntry get(RandomSource source) {
+        return outputs.getRandomValue(source).orElseThrow();
+    }
+
+    public int getProcessingTime() {
+        return processingTime;
+    }
+
     @Override
     public ItemStack assemble(ContainerWrapper container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
@@ -51,7 +65,7 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
 
     @Override
     public boolean canCraftInDimensions(int i, int i1) {
-        return false;
+        return true;
     }
 
     @Override

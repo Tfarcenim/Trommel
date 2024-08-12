@@ -10,8 +10,9 @@ import net.minecraft.world.item.ItemStack;
 
 public record RangedEntry(Item item,int min,int max) {
 
-    public ItemStack get(RandomSource randomSource) {
-
+    public ItemStack getItem(RandomSource randomSource) {
+        int count = min + randomSource.nextInt(max - min + 1);
+        return new ItemStack(item,count);
     }
 
     public void writeBuf(FriendlyByteBuf buf) {
@@ -21,7 +22,7 @@ public record RangedEntry(Item item,int min,int max) {
     }
 
     public static RangedEntry fromJson(JsonObject jsonObject) {
-        Item item = GsonHelper.convertToItem(jsonObject,"item");
+        Item item = GsonHelper.getAsItem(jsonObject,"item");
         int min = GsonHelper.getAsInt(jsonObject,"min");
         int max = GsonHelper.getAsInt(jsonObject,"max");
         return new RangedEntry(item,min,max);
