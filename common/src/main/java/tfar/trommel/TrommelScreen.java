@@ -44,5 +44,4 @@ public class TrommelScreen extends AbstractContainerScreen<TrommelMenu> {
             graphics.blit(TEXTURE, i + 33, j + 45 - k, 176, 12 - k, 14, k + 1);
         }
     }
-
 }
