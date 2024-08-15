@@ -13,7 +13,7 @@ public class TrommelScreen extends AbstractContainerScreen<TrommelMenu> {
 
     public TrommelScreen(TrommelMenu $$0, Inventory $$1, Component $$2) {
         super($$0, $$1, $$2);
-        this.titleLabelX = 29;
+        this.titleLabelX = 59;
         inventoryLabelY += 26;
         imageHeight +=26;
     }
@@ -43,5 +43,11 @@ public class TrommelScreen extends AbstractContainerScreen<TrommelMenu> {
             int k = this.menu.getLitProgress();
             graphics.blit(TEXTURE, i + 33, j + 45 - k, 176, 12 - k, 14, k + 1);
         }
+        int burn = menu.getBurnProgress();
+        int frame = burn / 6;
+
+        graphics.blit(TEXTURE, i + 105, j + 50, 176 + 16 * frame, 16, 16, 16);
+
+
     }
 }

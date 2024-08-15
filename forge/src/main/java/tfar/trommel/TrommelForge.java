@@ -8,6 +8,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegisterEvent;
 import tfar.trommel.client.ModClientForge;
 import tfar.trommel.datagen.ModDatagen;
+import tfar.trommel.init.ModItems;
 
 @Mod(Trommel.MOD_ID)
 public class TrommelForge {
@@ -31,8 +32,9 @@ public class TrommelForge {
         event.register(Registries.BLOCK,Trommel.id(Trommel.MOD_ID),() -> Init.BLOCK);
         event.register(Registries.BLOCK,Trommel.id("mesh"),() -> Init.MESH);
 
-        event.register(Registries.ITEM,Trommel.id(Trommel.MOD_ID),() -> Init.ITEM);
-        event.register(Registries.ITEM,Trommel.id("mesh"),() -> Init.MESH_ITEM);
+        event.register(Registries.ITEM,Trommel.id(Trommel.MOD_ID),() -> ModItems.TROMMEL);
+        event.register(Registries.ITEM,Trommel.id("mesh"),() -> ModItems.MESH);
+        event.register(Registries.ITEM,Trommel.id("pebble"),() -> ModItems.PEBBLE);
 
         event.register(Registries.MENU,Trommel.id(Trommel.MOD_ID),() -> Init.MENU_TYPE);
 

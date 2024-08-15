@@ -7,8 +7,9 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 
-public record RangedEntry(Item item,int min,int max) {
+public record RangedEntry(ItemLike item, int min, int max) {
 
     public ItemStack getItem(RandomSource randomSource) {
         int count = min + randomSource.nextInt(max - min + 1);
@@ -16,9 +17,17 @@ public record RangedEntry(Item item,int min,int max) {
     }
 
     public void writeBuf(FriendlyByteBuf buf) {
-        buf.writeId(BuiltInRegistries.ITEM, item);
+        buf.writeId(BuiltInRegistries.ITEM, item.asItem());
         buf.writeInt(min);
         buf.writeInt(max);
+    }
+
+    public JsonObject toJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("item",BuiltInRegistries.ITEM.getKey(item.asItem()).toString());
+        jsonObject.addProperty("min",min);
+        jsonObject.addProperty("max",max);
+        return jsonObject;
     }
 
     public static RangedEntry fromJson(JsonObject jsonObject) {

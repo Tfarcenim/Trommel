@@ -1,4 +1,4 @@
-package tfar.trommel.invetory;
+package tfar.trommel.inventory;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

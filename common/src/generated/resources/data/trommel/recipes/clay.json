@@ -1,0 +1,42 @@
+{
+  "type": "trommel:trommel",
+  "chance": 0.5,
+  "input": {
+    "item": "minecraft:clay"
+  },
+  "outputs": [
+    {
+      "entry": {
+        "item": "minecraft:clay",
+        "max": 8,
+        "min": 4
+      },
+      "weight": 30
+    },
+    {
+      "entry": {
+        "item": "trommel:pebble",
+        "max": 3,
+        "min": 1
+      },
+      "weight": 20
+    },
+    {
+      "entry": {
+        "item": "minecraft:gunpowder",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 10
+    },
+    {
+      "entry": {
+        "item": "minecraft:raw_gold",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 1
+    }
+  ],
+  "time": 50
+}

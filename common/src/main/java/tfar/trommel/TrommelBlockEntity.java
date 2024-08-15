@@ -1,7 +1,5 @@
 package tfar.trommel;
 
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,20 +13,16 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import tfar.trommel.invetory.ContainerWrapper;
+import tfar.trommel.inventory.ContainerWrapper;
 import tfar.trommel.platform.Services;
 import tfar.trommel.recipe.RangedEntry;
 import tfar.trommel.recipe.TrommelRecipe;
-
-import java.util.stream.IntStream;
 
 public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nameable {
 
@@ -157,16 +151,17 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
         if (match != null) {
             int slot = match.findInput(wrapper);
             trommelInventory.extractStack(slot,1,false);
-            RangedEntry rangedEntry = match.get(level.random);
-            ItemStack stack = rangedEntry.getItem(level.random);
+            if (match.getOutputChance() >= level.random.nextDouble()) {
+                RangedEntry rangedEntry = match.get(level.random);
+                ItemStack stack = rangedEntry.getItem(level.random);
 
-            boolean connectedToChest = false;
-            if (connectedToChest) {
+                boolean connectedToChest = false;
+                if (connectedToChest) {
 
-            } else {
-                Containers.dropItemStack(level,getBlockPos().getX(),getBlockPos().getY(),getBlockPos().getZ(),stack);
+                } else {
+                    Containers.dropItemStack(level, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), stack);
+                }
             }
-
         }
     }
 

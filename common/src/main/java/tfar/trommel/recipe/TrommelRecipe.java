@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import tfar.trommel.ModRecipeSerializers;
 import tfar.trommel.ModRecipeTypes;
-import tfar.trommel.invetory.ContainerWrapper;
+import tfar.trommel.inventory.ContainerWrapper;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -24,13 +24,14 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
 
     private final ResourceLocation id;
     private final Ingredient input;
-    private final int processingTime = 50;
+    private final int processingTime;
     private final double outputChance;
     private final SimpleWeightedRandomList<RangedEntry> outputs;
 
-    public TrommelRecipe(ResourceLocation id, Ingredient input, double outputChance, SimpleWeightedRandomList<RangedEntry> outputs) {
+    public TrommelRecipe(ResourceLocation id, Ingredient input, int processingTime, double outputChance, SimpleWeightedRandomList<RangedEntry> outputs) {
         this.id = id;
         this.input = input;
+        this.processingTime = processingTime;
         this.outputChance = outputChance;
         this.outputs = outputs;
     }
@@ -52,6 +53,10 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
 
     public RangedEntry get(RandomSource source) {
         return outputs.getRandomValue(source).orElseThrow();
+    }
+
+    public double getOutputChance() {
+        return outputChance;
     }
 
     public int getProcessingTime() {
@@ -89,18 +94,19 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
         @Override
         public TrommelRecipe fromJson(ResourceLocation location, JsonObject json) {
             Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(json,"input"));
+            int processing_time = GsonHelper.getAsInt(json,"time",50);
             double outputChance = GsonHelper.getAsDouble(json,"chance");
 
             SimpleWeightedRandomList<RangedEntry> outputs = get(GsonHelper.getAsJsonArray(json,"outputs"));
 
-            return new TrommelRecipe(location,input,outputChance,outputs);
+            return new TrommelRecipe(location,input, processing_time, outputChance, outputs);
         }
 
         protected static SimpleWeightedRandomList<RangedEntry> get(JsonArray array) {
             SimpleWeightedRandomList.Builder<RangedEntry> builder = SimpleWeightedRandomList.builder();
             for (JsonElement jsonElement : array) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();
-                builder.add(RangedEntry.fromJson(jsonObject),GsonHelper.getAsInt(jsonObject,"weight"));
+                builder.add(RangedEntry.fromJson(jsonObject.getAsJsonObject("entry")),GsonHelper.getAsInt(jsonObject,"weight"));
             }
 
             return builder.build();
@@ -109,6 +115,7 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
         @Override
         public TrommelRecipe fromNetwork(ResourceLocation location, FriendlyByteBuf friendlyByteBuf) {
             Ingredient input = Ingredient.fromNetwork(friendlyByteBuf);
+            int processing_time = friendlyByteBuf.readInt();
             double outputChance = friendlyByteBuf.readDouble();
             int size = friendlyByteBuf.readInt();
             SimpleWeightedRandomList.Builder<RangedEntry> builder = SimpleWeightedRandomList.builder();
@@ -116,12 +123,13 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
                 builder.add(RangedEntry.fromNetwork(friendlyByteBuf), friendlyByteBuf.readInt());
             }
 
-            return new TrommelRecipe(location,input,outputChance,builder.build());
+            return new TrommelRecipe(location,input, processing_time, outputChance, builder.build());
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf friendlyByteBuf, TrommelRecipe trommelRecipe) {
             trommelRecipe.input.toNetwork(friendlyByteBuf);
+            friendlyByteBuf.writeInt(trommelRecipe.processingTime);
             friendlyByteBuf.writeDouble(trommelRecipe.outputChance);
             List<WeightedEntry.Wrapper<RangedEntry>> unwrap = trommelRecipe.outputs.unwrap();
             friendlyByteBuf.writeInt(unwrap.size());

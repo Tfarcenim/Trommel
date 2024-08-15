@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import tfar.trommel.invetory.TrommelSlot;
+import tfar.trommel.inventory.TrommelSlot;
 import tfar.trommel.platform.Services;
 
 public class TrommelMenu extends AbstractContainerMenu {
