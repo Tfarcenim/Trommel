@@ -7,7 +7,7 @@
   "outputs": [
     {
       "entry": {
-        "item": "minecraft:clay",
+        "item": "minecraft:clay_ball",
         "max": 8,
         "min": 4
       },

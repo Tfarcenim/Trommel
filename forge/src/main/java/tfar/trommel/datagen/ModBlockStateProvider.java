@@ -26,10 +26,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
             if (lit){
                 modelFile = models().cube("trommel_lit",Trommel.id("block/trommel_bottom"),Trommel.id("block/trommel_top"),Trommel.id("block/trommel_front_lit"),
-                        Trommel.id("block/trommel_back_lit"),Trommel.id("block/trommel_side"),Trommel.id("block/trommel_output"));
+                        Trommel.id("block/trommel_back_lit"),Trommel.id("block/trommel_side"),Trommel.id("block/trommel_output"))
+                        .texture("particle",Trommel.id("block/trommel_top"));
             } else {
                 modelFile = models().cube("trommel",Trommel.id("block/trommel_bottom"),Trommel.id("block/trommel_top"),Trommel.id("block/trommel_front"),
-                        Trommel.id("block/trommel_back"),Trommel.id("block/trommel_side"),Trommel.id("block/trommel_output"));
+                        Trommel.id("block/trommel_back"),Trommel.id("block/trommel_side"),Trommel.id("block/trommel_output"))
+                        .texture("particle",Trommel.id("block/trommel_top"));
             }
             return ConfiguredModel.builder().modelFile(modelFile).rotationY((facing.get2DDataValue() + 2) % 4 * 90).build();
         });

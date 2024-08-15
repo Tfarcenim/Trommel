@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -27,11 +28,11 @@ import org.jetbrains.annotations.Nullable;
 public class TrommelBlock extends Block implements EntityBlock {
     public TrommelBlock(Properties $$0) {
         super($$0);
-        this.registerDefaultState(this.stateDefinition.any().setValue(LecternBlock.FACING, Direction.NORTH).setValue(LIT,false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT,false));
     }
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-
+    public static final DirectionProperty FACING = LecternBlock.FACING;
 
     @Override
     public InteractionResult use(BlockState $$0, Level $$1, BlockPos $$2, Player $$3, InteractionHand $$4, BlockHitResult $$5) {

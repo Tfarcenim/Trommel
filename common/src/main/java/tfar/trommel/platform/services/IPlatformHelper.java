@@ -1,7 +1,11 @@
 package tfar.trommel.platform.services;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import tfar.trommel.TrommelBlockEntity;
 import tfar.trommel.TrommelInventory;
 
@@ -45,5 +49,8 @@ public interface IPlatformHelper {
     int getBurnTime(ItemStack stack, RecipeType<?> type);
 
     ItemStack getCraftRemainder(ItemStack stack);
+
+    ItemStack addToNearbyInventory(Level level, BlockEntity blockEntity, BlockPos pos, ItemStack stack, Direction direction);
+
 
 }

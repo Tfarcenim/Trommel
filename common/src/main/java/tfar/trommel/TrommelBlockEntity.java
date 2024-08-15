@@ -1,6 +1,7 @@
 package tfar.trommel;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -154,12 +155,12 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
             if (match.getOutputChance() >= level.random.nextDouble()) {
                 RangedEntry rangedEntry = match.get(level.random);
                 ItemStack stack = rangedEntry.getItem(level.random);
-
-                boolean connectedToChest = false;
-                if (connectedToChest) {
-
-                } else {
-                    Containers.dropItemStack(level, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), stack);
+                Direction direction = getBlockState().getValue(TrommelBlock.FACING).getCounterClockWise();
+                BlockPos containerPos = getBlockPos().relative(direction);
+                BlockEntity blockEntity = level.getBlockEntity(containerPos);
+                ItemStack rejected = Services.PLATFORM.addToNearbyInventory(level, blockEntity, containerPos,stack,direction);
+                if (!rejected.isEmpty()) {
+                    Containers.dropItemStack(level, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), rejected);
                 }
             }
         }
