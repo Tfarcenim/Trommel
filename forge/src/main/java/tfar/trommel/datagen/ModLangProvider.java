@@ -23,6 +23,7 @@ public class ModLangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         addTextComponent(TrommelBlockEntity.DEFAULT_NAME,"Trommel");
+        addTextComponent(Trommel.TROMMEL,"Trommel");
     }
 
 

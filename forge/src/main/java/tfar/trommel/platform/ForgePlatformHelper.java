@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.ForgeHooks;
 import tfar.trommel.TrommelBlockEntity;
 import tfar.trommel.TrommelInventory;
+import tfar.trommel.inventory.TrommelInventoryForge;
 import tfar.trommel.platform.services.IPlatformHelper;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -35,7 +36,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public TrommelInventory create(TrommelBlockEntity trommelBlockEntity) {
-        return null;
+        return new TrommelInventoryForge(trommelBlockEntity);
     }
 
     @Override
@@ -50,6 +51,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public ItemStack addToNearbyInventory(Level level, BlockEntity blockEntity, BlockPos pos, ItemStack stack, Direction direction) {
-        return null;
+        return stack;
     }
 }

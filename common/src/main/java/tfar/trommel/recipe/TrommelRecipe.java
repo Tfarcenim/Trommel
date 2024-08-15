@@ -55,6 +55,10 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
         return outputs.getRandomValue(source).orElseThrow();
     }
 
+    public SimpleWeightedRandomList<RangedEntry> getOutputs() {
+        return outputs;
+    }
+
     public double getOutputChance() {
         return outputChance;
     }
@@ -71,6 +75,10 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
     @Override
     public boolean canCraftInDimensions(int i, int i1) {
         return true;
+    }
+
+    public Ingredient getInput() {
+        return input;
     }
 
     @Override

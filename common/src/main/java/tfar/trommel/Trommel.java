@@ -1,6 +1,8 @@
 package tfar.trommel;
 
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -21,6 +23,8 @@ public class Trommel {
     public static final String MOD_ID = "trommel";
     public static final String MOD_NAME = "Trommel";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
+
+    public static final MutableComponent TROMMEL = Component.translatable("category.rei.trommel.trommel");
 
     // The loader specific projects are able to import and use any code from the common project. This allows you to
     // write the majority of your code here and load it from your loader specific projects. This example has some
