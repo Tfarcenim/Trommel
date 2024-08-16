@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "c": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "l": {
+      "tag": "minecraft:logs"
+    },
+    "m": {
+      "item": "trommel:mesh"
+    }
+  },
+  "pattern": [
+    "ccc",
+    "cmc",
+    "lll"
+  ],
+  "result": {
+    "item": "trommel:trommel"
+  },
+  "show_notification": true
+}

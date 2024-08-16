@@ -1,0 +1,66 @@
+{
+  "type": "trommel:trommel",
+  "chance": 0.5,
+  "input": {
+    "item": "minecraft:soul_sand"
+  },
+  "outputs": [
+    {
+      "entry": {
+        "item": "minecraft:flint",
+        "max": 6,
+        "min": 2
+      },
+      "weight": 40
+    },
+    {
+      "entry": {
+        "item": "minecraft:bone",
+        "max": 2,
+        "min": 1
+      },
+      "weight": 20
+    },
+    {
+      "entry": {
+        "item": "minecraft:quartz",
+        "max": 3,
+        "min": 1
+      },
+      "weight": 10
+    },
+    {
+      "entry": {
+        "item": "minecraft:glowstone_dust",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 10
+    },
+    {
+      "entry": {
+        "item": "minecraft:raw_gold",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 4
+    },
+    {
+      "entry": {
+        "item": "minecraft:raw_iron",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 2
+    },
+    {
+      "entry": {
+        "item": "minecraft:coal",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 1
+    }
+  ],
+  "time": 50
+}

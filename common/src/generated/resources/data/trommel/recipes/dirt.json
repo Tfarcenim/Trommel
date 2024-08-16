@@ -1,0 +1,66 @@
+{
+  "type": "trommel:trommel",
+  "chance": 0.5,
+  "input": {
+    "item": "minecraft:dirt"
+  },
+  "outputs": [
+    {
+      "entry": {
+        "item": "trommel:pebble",
+        "max": 3,
+        "min": 1
+      },
+      "weight": 200
+    },
+    {
+      "entry": {
+        "item": "minecraft:clay_ball",
+        "max": 5,
+        "min": 1
+      },
+      "weight": 80
+    },
+    {
+      "entry": {
+        "item": "minecraft:flint",
+        "max": 3,
+        "min": 1
+      },
+      "weight": 40
+    },
+    {
+      "entry": {
+        "item": "minecraft:gunpowder",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 8
+    },
+    {
+      "entry": {
+        "item": "minecraft:raw_iron",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 2
+    },
+    {
+      "entry": {
+        "item": "minecraft:amethyst_shard",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 1
+    },
+    {
+      "entry": {
+        "item": "minecraft:quartz",
+        "max": 1,
+        "min": 1
+      },
+      "weight": 1
+    }
+  ],
+  "time": 50
+}

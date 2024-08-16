@@ -10,8 +10,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.codehaus.plexus.util.StringUtils;
+import tfar.trommel.Init;
 import tfar.trommel.Trommel;
 import tfar.trommel.TrommelBlockEntity;
+import tfar.trommel.init.ModItems;
 
 import java.util.function.Supplier;
 
@@ -25,6 +27,9 @@ public class ModLangProvider extends LanguageProvider {
         addTextComponent(TrommelBlockEntity.DEFAULT_NAME,"Trommel");
         addTextComponent(Trommel.TROMMEL,"Trommel");
         add("category.rei.trommel.processing_time","%s ticks");
+        addDefaultItem(() -> ModItems.PEBBLE);
+        addDefaultBlock(() -> Init.MESH);
+        addDefaultBlock(() -> Init.BLOCK);
     }
 
 

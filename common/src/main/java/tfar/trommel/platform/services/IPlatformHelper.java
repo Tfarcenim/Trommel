@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import tfar.trommel.TrommelBlockEntity;
 import tfar.trommel.TrommelInventory;
 
@@ -51,6 +52,7 @@ public interface IPlatformHelper {
     ItemStack getCraftRemainder(ItemStack stack);
 
     ItemStack addToNearbyInventory(Level level, BlockEntity blockEntity, BlockPos pos, ItemStack stack, Direction direction);
-
-
+    default TrommelBlockEntity createBlockEntity(BlockPos $$1, BlockState $$2) {
+        return new TrommelBlockEntity($$1, $$2);
+    }
 }

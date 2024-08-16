@@ -18,7 +18,10 @@
         "main": [
           "tfar.trommel.TrommelFabric"
         ],
-        "client": ["tfar.trommel.client.ModClientFabric"]
+        "client": ["tfar.trommel.client.ModClientFabric"],
+        "rei_client" :[
+            "tfar.trommel.rei.ReiClientPlugin"
+        ]
     },
     "mixins": [
         "${mod_id}.mixins.json",

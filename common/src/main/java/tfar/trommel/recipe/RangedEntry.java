@@ -11,6 +11,10 @@ import net.minecraft.world.level.ItemLike;
 
 public record RangedEntry(ItemLike item, int min, int max) {
 
+    public RangedEntry(ItemLike item,int count) {
+        this(item,count,count);
+    }
+
     public ItemStack getItem(RandomSource randomSource) {
         int count = min + randomSource.nextInt(max - min + 1);
         return new ItemStack(item,count);

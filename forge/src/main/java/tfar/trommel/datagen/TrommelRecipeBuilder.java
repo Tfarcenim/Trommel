@@ -6,6 +6,7 @@ import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.Item;
@@ -39,6 +40,10 @@ public class TrommelRecipeBuilder implements RecipeBuilder {
     }
 
     public static TrommelRecipeBuilder trommel(ItemLike input, int processingTime, double outputChance) {
+        return trommel(Ingredient.of(input),processingTime,outputChance);
+    }
+
+    public static TrommelRecipeBuilder trommel(TagKey<Item> input, int processingTime, double outputChance) {
         return trommel(Ingredient.of(input),processingTime,outputChance);
     }
 
