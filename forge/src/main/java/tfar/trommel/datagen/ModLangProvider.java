@@ -24,6 +24,7 @@ public class ModLangProvider extends LanguageProvider {
     protected void addTranslations() {
         addTextComponent(TrommelBlockEntity.DEFAULT_NAME,"Trommel");
         addTextComponent(Trommel.TROMMEL,"Trommel");
+        add("category.rei.trommel.processing_time","%s ticks");
     }
 
 

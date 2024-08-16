@@ -19,7 +19,7 @@ public class TrommelInventoryFabric implements TrommelInventory {
     public NonNullList<ItemStack> getStacks() {
         return stacks;
     }
-    
+
     @Override
     public void setChanged() {
         if (trommelBlockEntity != null) trommelBlockEntity.setChanged();

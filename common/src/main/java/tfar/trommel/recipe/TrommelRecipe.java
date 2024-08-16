@@ -20,22 +20,7 @@ import tfar.trommel.inventory.ContainerWrapper;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class TrommelRecipe implements Recipe<ContainerWrapper> {
-
-    private final ResourceLocation id;
-    private final Ingredient input;
-    private final int processingTime;
-    private final double outputChance;
-    private final SimpleWeightedRandomList<RangedEntry> outputs;
-
-    public TrommelRecipe(ResourceLocation id, Ingredient input, int processingTime, double outputChance, SimpleWeightedRandomList<RangedEntry> outputs) {
-        this.id = id;
-        this.input = input;
-        this.processingTime = processingTime;
-        this.outputChance = outputChance;
-        this.outputs = outputs;
-    }
-
+public record TrommelRecipe(ResourceLocation id, Ingredient input, int processingTime, double outputChance, SimpleWeightedRandomList<RangedEntry> outputs) implements Recipe<ContainerWrapper> {
     @Override
     public RecipeType<?> getType() {
         return ModRecipeTypes.TROMMEL;
@@ -55,18 +40,6 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
         return outputs.getRandomValue(source).orElseThrow();
     }
 
-    public SimpleWeightedRandomList<RangedEntry> getOutputs() {
-        return outputs;
-    }
-
-    public double getOutputChance() {
-        return outputChance;
-    }
-
-    public int getProcessingTime() {
-        return processingTime;
-    }
-
     @Override
     public ItemStack assemble(ContainerWrapper container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
@@ -75,10 +48,6 @@ public class TrommelRecipe implements Recipe<ContainerWrapper> {
     @Override
     public boolean canCraftInDimensions(int i, int i1) {
         return true;
-    }
-
-    public Ingredient getInput() {
-        return input;
     }
 
     @Override

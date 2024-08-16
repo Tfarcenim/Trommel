@@ -145,14 +145,14 @@ public class TrommelBlockEntity extends BlockEntity implements MenuProvider, Nam
     }
 
     private static int getTotalCookTime(Level $$0, TrommelBlockEntity $$1) {
-        return $$1.quickCheck.getRecipeFor($$1.wrapper, $$0).map(TrommelRecipe::getProcessingTime).orElse(50);
+        return $$1.quickCheck.getRecipeFor($$1.wrapper, $$0).map(TrommelRecipe::processingTime).orElse(50);
     }
 
     protected void process() {
         if (match != null) {
             int slot = match.findInput(wrapper);
             trommelInventory.extractStack(slot,1,false);
-            if (match.getOutputChance() >= level.random.nextDouble()) {
+            if (match.outputChance() >= level.random.nextDouble()) {
                 RangedEntry rangedEntry = match.get(level.random);
                 ItemStack stack = rangedEntry.getItem(level.random);
                 Direction direction = getBlockState().getValue(TrommelBlock.FACING).getCounterClockWise();
